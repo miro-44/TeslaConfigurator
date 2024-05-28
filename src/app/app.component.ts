@@ -11,5 +11,4 @@ import { routes } from './app.routes';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  routes: Routes = routes;
 }

@@ -1,5 +1,5 @@
 <ul>
-    @for (route of routes; track route; let step = $index) {
-        <li [routerLink]='route.path' attr.aria-label='{{ "Step " + step }}'>Step</li>
+    @for (route of appRoutes; track route; let index = $index) {
+        <li [routerLink]='route.path'>Step {{ index + 1 }}</li>
     }
 </ul>

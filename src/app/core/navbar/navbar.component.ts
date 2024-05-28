@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { routes } from '../../app.routes';
 
 @Component({
   selector: 'app-navbar',
@@ -8,10 +9,6 @@ import { RouterModule, Routes } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent implements OnInit {
-  @Input() routes: Routes = [];
-
-  ngOnInit(): void {
-    console.log(this.routes);
-  }
+export class NavbarComponent {
+  appRoutes: Routes = routes;
 }
