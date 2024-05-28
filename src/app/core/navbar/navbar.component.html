@@ -1,1 +1,5 @@
-<p>navbar works!</p>
+<ul>
+    @for (route of routes; track route; let step = $index) {
+        <li [routerLink]='route.path' attr.aria-label='{{ "Step " + step }}'>Step</li>
+    }
+</ul>
