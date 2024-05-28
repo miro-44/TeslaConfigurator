@@ -14,5 +14,12 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./feature/car-config/step-2/step-2.component')
                 .then(c => c.Step2Component)
+    },
+    {
+        path: 'step3',
+        title: 'Step 3',
+        loadComponent: () =>
+            import('./feature/car-config/step-3/step-3.component')
+                .then(c => c.Step3Component)
     }
 ];
