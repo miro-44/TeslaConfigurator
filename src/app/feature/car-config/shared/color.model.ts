@@ -1,7 +1,7 @@
-export type ColorSet = 'white' | 'black' | 'blue' | 'grey' | 'red';
+export type ColorCodeSet = 'white' | 'black' | 'blue' | 'grey' | 'red';
 
 export interface Color {
-    code: ColorSet,
+    code: ColorCodeSet,
     description: string,
     price: number
 }
