@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-step3',
+  selector: 'app-step-3',
   standalone: true,
   imports: [],
-  templateUrl: './step3.component.html',
-  styleUrl: './step3.component.scss'
+  templateUrl: './step-3.component.html',
+  styleUrl: './step-3.component.scss'
 })
 export class Step3Component {
 
