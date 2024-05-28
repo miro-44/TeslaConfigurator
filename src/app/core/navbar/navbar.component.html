@@ -1,5 +1,7 @@
-<ul>
-    @for (route of appRoutes; track route; let index = $index) {
-        <li [routerLink]='route.path'>Step {{ index + 1 }}</li>
-    }
-</ul>
+<nav>
+    <ul>
+        @for (route of appRoutes; track route; let index = $index) {
+            <li [routerLink]='route.path'>Step {{ index + 1 }}</li>
+        }
+    </ul>
+</nav>
