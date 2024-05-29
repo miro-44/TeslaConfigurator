@@ -28,7 +28,7 @@ export class Step2Component implements OnInit {
       configsSelect: new FormControl<Config[] | null>(null)
     }
     this.step2FormGroup = new FormGroup(this.step2FormControls);
-    console.log("Model: " + this.formStateTransferService.getModel()!);
-    this.vehicleSetup$ = this.teslaService.fetchConfigs(this.formStateTransferService.getModel()!.code);
+    console.log("Model: " + this.formStateTransferService.getModelandColor()!);
+    this.vehicleSetup$ = this.teslaService.fetchConfigs(this.formStateTransferService.getModelandColor()!.model.code);
   }
 }

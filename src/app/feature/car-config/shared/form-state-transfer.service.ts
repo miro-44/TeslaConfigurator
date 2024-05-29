@@ -17,11 +17,11 @@ export class FormStateTransferService {
     sessionStorage.setItem('step1', JSON.stringify(data));
   }
 
-  getModel(): VehicleModel | null {
+  getModelandColor(): ModelAndColor | null {
     let modelAndColorAsString: string | null = sessionStorage.getItem('step1');
     if (!modelAndColorAsString) {
       return null;
     }
-    return (JSON.parse(modelAndColorAsString) as ModelAndColor).model;
+    return (JSON.parse(modelAndColorAsString) as ModelAndColor);
   }
 }
