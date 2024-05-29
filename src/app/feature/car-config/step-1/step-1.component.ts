@@ -20,8 +20,6 @@ import { FormStateTransferService } from '../shared/form-state-transfer.service'
 export class Step1Component extends AutoUnsubAdapter implements OnInit {
     protected vehicles$!: Observable<VehicleModel[]>;
     protected step1FormGroup!: FormGroup<ObjAsFormControls<ModelAndColor>>;
-    protected step1FormControls!: ObjAsFormControls<ModelAndColor>;
-    private readonly baseImageUrl: string = 'https://interstate21.com/tesla-app/images/';
 
     constructor(
       private teslaService: TeslaService,
@@ -60,10 +58,6 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
 
     protected selectCompareFn(selected: VehicleModel | Color | null, option: VehicleModel | Color): boolean {
       return (selected && option) ? (selected!.code === option.code) : (selected === option);
-    }
-
-    protected fetchVehicleImageUrl(): string {
-      return this.baseImageUrl + this.modelSelect!.code + '/' + this.colorSelect!.code + '.jpg';
     }
 
     protected get modelSelect(): VehicleModel | null {
