@@ -1,16 +1,16 @@
 <h1>Step 1: Choose your Model and Color</h1>
-<form [formGroup]='step1Form'>
+<form [formGroup]='step1FormGroup'>
     <label for='modelSelect'>Model:</label>
-    <select name='modelSelect' id='modelSelect' formControlName='modelSelect' (change)='change()'>
+    <select name='modelSelect' id='modelSelect' formControlName='modelSelect'>
         <option [ngValue]='null'>Choose...</option>
         @for (vehicle of (vehicles$ | async); track vehicle.code) {
             <option [ngValue]='vehicle'>{{ vehicle.description }}</option>
         }
     </select>
-    @if (step1Form.value.modelSelect?.colors?.length) {
+    @if (modelSelect?.colors?.length) {
         <label for='colorSelect'>Color: </label>
         <select name='colorSelect' id='colorSelect' formControlName='colorSelect'>
-            @for (color of step1Form.value.modelSelect!.colors; track color.code) {
+            @for (color of modelSelect!.colors; track color.code) {
                 <option [ngValue]='color'>{{ color.description }}</option>
             }
         </select>

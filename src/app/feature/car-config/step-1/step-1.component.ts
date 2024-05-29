@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Color } from '../shared/color.model';
 import { Step1Form } from '../shared/step-1-form.model';
+import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
 
 @Component({
   selector: 'app-step-1',
@@ -14,35 +15,39 @@ import { Step1Form } from '../shared/step-1-form.model';
   templateUrl: './step-1.component.html',
   styleUrl: './step-1.component.scss'
 })
-export class Step1Component implements OnInit {
+export class Step1Component extends AutoUnsubAdapter implements OnInit {
     protected readonly baseImageUrl: string = 'https://interstate21.com/tesla-app/images/';
     protected vehicles$!: Observable<VehicleModel[]>;
-    protected step1Form!: FormGroup<Step1Form>;
+    protected readonly step1FormGroup: FormGroup<Step1Form>;
+    protected readonly step1FormModel: Step1Form;
 
     constructor(private teslaService: TeslaService) {
-      this.step1Form = new FormGroup({
+      super();
+      this.step1FormModel = {
         modelSelect: new FormControl<VehicleModel | null>(null),
         colorSelect: new FormControl<Color | null>(null)
-      });
+      };
+      this.step1FormGroup = new FormGroup(this.step1FormModel);
     }
 
     ngOnInit(): void {
       this.vehicles$ = this.teslaService.fetch();
+      this.subs.add(this.step1FormModel.modelSelect.valueChanges
+          .subscribe(() =>
+            this.step1FormGroup.patchValue({colorSelect: this.modelSelect?.colors[0] || null})
+          )
+      );
     }
 
     protected fetchVehicleImageUrl(): string {
       return this.baseImageUrl + this.modelSelect!.code + '/' + this.colorSelect!.code + '.jpg';
     }
 
-    protected change(): void {
-      this.step1Form.patchValue({colorSelect: this.modelSelect?.colors[0] || null});
-    }
-
     protected get modelSelect(): VehicleModel | null  {
-      return this.step1Form.get('modelSelect')?.value || null;
+      return this.step1FormModel.modelSelect!.value || null;
     }
 
     protected get colorSelect(): Color | null {
-      return this.step1Form.get('colorSelect')?.value || null;
+      return this.step1FormModel.colorSelect!.value || null;
     }
 }
