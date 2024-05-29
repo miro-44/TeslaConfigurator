@@ -17,7 +17,7 @@ export class FormStateTransferService {
     sessionStorage.setItem('step1', JSON.stringify(data));
   }
 
-  getModelandColor(): ModelAndColor | null {
+  getModelAndColor(): ModelAndColor | null {
     let modelAndColorAsString: string | null = sessionStorage.getItem('step1');
     if (!modelAndColorAsString) {
       return null;
