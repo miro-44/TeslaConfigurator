@@ -33,14 +33,30 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
   }
 
   ngOnInit(): void {
+    let previousVehicleSetup = this.formStateTransferService.configAndExtras;
+    console.log("Previous " + previousVehicleSetup);
     this.step2FormGroup = new FormGroup({
-      configSelect: new FormControl<Config | null>(null),
-      includeTowHitch: new FormControl<boolean>(false, {nonNullable: true}),
-      includeYoke: new FormControl<boolean>(false, {nonNullable: true})
+      configSelect: new FormControl<Config | null>(previousVehicleSetup?.config || null),
+      includeTowHitch: new FormControl<boolean>(previousVehicleSetup?.towHitch || false, {nonNullable: true}),
+      includeYoke: new FormControl<boolean>(previousVehicleSetup?.yoke || false, {nonNullable: true})
     });
     this.subs.add(
       this.teslaService.fetchConfigs(this.formStateTransferService.modelAndColor!.model.code)
-        .subscribe(vehicleOptions => this.vehicleOptions = vehicleOptions)
+        .subscribe(vehicleOptions => {
+          this.vehicleOptions = vehicleOptions;
+          console.log('Added new opitons');
+        })
+    );
+    this.subs.add(
+      this.step2FormGroup.valueChanges
+      .subscribe(() => {
+        this.formStateTransferService.configAndExtras = {
+          config: this.configSelect!,
+          towHitch: this.step2FormGroup.controls.includeTowHitch.value,
+          yoke: this.step2FormGroup.controls.includeYoke.value
+        }
+        console.log(this.formStateTransferService.configAndExtras);
+      })
     );
   }
 
@@ -48,11 +64,8 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
     return this.step2FormGroup.controls.configSelect.value;
   }
 
-  protected get includeTowHitch(): boolean {
-    return this.step2FormGroup.controls.includeTowHitch.value;
+  protected selectCompareFn(selected: Config | null, option: Config): boolean {
+    return (selected && option) ? (selected.id === option.id) : (selected === option);
   }
 
-  protected get includeYoke(): boolean {
-    return this.step2FormGroup.controls.includeYoke.value;
-  }
 }

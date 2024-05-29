@@ -15,6 +15,9 @@ export class FormStateTransferService {
   configAndExtras: ConfigAndExtras | null = null;
 
   set modelAndColor(modelAndColor: ModelAndColor | null) {
+    if (!this.modelAndColor || this.modelAndColor?.model !== modelAndColor?.model) {
+      this.configAndExtras = null;
+    }
     this.modelAndColor$.next(modelAndColor);
   }
 
