@@ -3,7 +3,7 @@
     <label for='configSelect'>Config: </label>
     <select name='configSelect' id='configSelect' formControlName='configSelect'>
         <option [ngValue]='null'>Choose...</option>
-        @for (config of (vehicleOptions$ | async)?.configs; track config.id) {
+        @for (config of vehicleOptions?.configs; track config.id) {
             <option [ngValue]='config'>{{ config.description }}</option>
         }
     </select><br />
@@ -13,5 +13,15 @@
             Max Speed: {{ configSelect.speed }}, 
             Cost: {{ configSelect.price | usd }}
         </span>
+        <br />
+    }
+    @if (vehicleOptions?.towHitch) {
+        <label for='includeTowHitch'>Tow Hitch?</label>
+        <input type='checkbox' formControlName='includeTowHitch' />
+        <br />
+    }
+    @if (vehicleOptions?.yoke) {
+        <label for='includeYoke'>Yoke Steering Wheel?</label>
+        <input type='checkbox' formControlName='includeYoke' />
     }
 </form>
