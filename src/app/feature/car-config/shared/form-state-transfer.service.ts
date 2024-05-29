@@ -14,8 +14,6 @@ export class FormStateTransferService {
       sessionStorage.removeItem('step1');
       return;
     }
-    console.log("Persisting:");
-    console.log(data);
     sessionStorage.setItem('step1', JSON.stringify(data));
   }
 

@@ -33,29 +33,32 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
     ngOnInit(): void {
       this.vehicles$ = this.teslaService.fetchModels();
       let persistedModelAndColor = this.formStateTransferService.getModelAndColor();
-      console.log(persistedModelAndColor);
       this.step1FormGroup = new FormGroup({
         modelSelect: new FormControl<VehicleModel | null>(persistedModelAndColor?.model || null, [Validators.required]),
         colorSelect: new FormControl<Color | null>(persistedModelAndColor?.color || null, [Validators.required])
       });
-      console.log(this.step1FormGroup.value);
       this.subs.add(this.step1FormGroup.controls.modelSelect.valueChanges
         .subscribe(() => {
           this.step1FormGroup.patchValue({colorSelect: this.modelSelect?.colors[0] || null});
+          this.updateState();
         })
       );
-      this.subs.add(this.step1FormGroup.valueChanges
+      this.subs.add(this.step1FormGroup.controls.colorSelect.valueChanges
         .subscribe(() => {
-          if (this.modelSelect == null || this.colorSelect == null) {
-            this.formStateTransferService.setModelAndColor(null);
-            return;
-          }
-          this.formStateTransferService.setModelAndColor({model: this.modelSelect!, color: this.colorSelect!});
+          this.updateState();
         })
       );
     }
 
-    compareFn(selected: VehicleModel | Color | null, option: VehicleModel | Color): boolean {
+    protected updateState(): void {
+      if (this.modelSelect == null || this.colorSelect == null) {
+        this.formStateTransferService.setModelAndColor(null);
+        return;
+      }
+      this.formStateTransferService.setModelAndColor({model: this.modelSelect!, color: this.colorSelect!});
+    }
+
+    protected compareFn(selected: VehicleModel | Color | null, option: VehicleModel | Color): boolean {
       return (selected && option) ? (selected!.code === option.code) : (selected === option);
     }
 
