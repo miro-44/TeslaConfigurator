@@ -7,7 +7,6 @@ import { FormStateTransferService } from '../shared/form-state-transfer.service'
 import { VehicleOptions } from '../shared/vehicle-options.type';
 import { UsdPipe } from '../shared/usd.pipe';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
-import { ConfigAndExtras } from '../shared/config-and-extras.type';
 import { VehicleSpecsComponent } from '../vehicle-specs/vehicle-specs.component';
 
 @Component({
@@ -19,7 +18,6 @@ import { VehicleSpecsComponent } from '../vehicle-specs/vehicle-specs.component'
 })
 export class Step2Component extends AutoUnsubAdapter implements OnInit {
   protected vehicleOptions?: VehicleOptions;
-  protected currentVehicleSetup?: ConfigAndExtras;
   protected step2FormGroup!: FormGroup<{
     configSelect: FormControl<Config | null>,
     includeTowHitch: FormControl<boolean>,

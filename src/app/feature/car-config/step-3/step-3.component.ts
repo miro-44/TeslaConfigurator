@@ -16,6 +16,9 @@ import { VehicleSpecsComponent } from '../vehicle-specs/vehicle-specs.component'
 })
 export class Step3Component {
 
+  readonly towHitchPrice: number = 1000;
+  readonly yokePrice: number = 1000;
+
   constructor(private formStateTransferService: FormStateTransferService) {}
 
   get modelAndColor(): ModelAndColor {
@@ -24,6 +27,12 @@ export class Step3Component {
 
   get configAndExtras(): ConfigAndExtras {
     return this.formStateTransferService.configAndExtras!;
+  }
+
+  get totalPrice() {
+    return this.modelAndColor.color.price + this.configAndExtras.config.price +
+      (this.configAndExtras.towHitch ? this.towHitchPrice : 0) +
+        (this.configAndExtras.yoke ? this.yokePrice : 0);
   }
 
 }
