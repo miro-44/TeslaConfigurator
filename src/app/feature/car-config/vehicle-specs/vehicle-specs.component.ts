@@ -12,4 +12,5 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class VehicleSpecsComponent {
   @Input() config?: Config;
+  @Input() showCost: boolean = true;
 }

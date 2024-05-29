@@ -1,7 +1,9 @@
 <span>
     @if (config) {
         Range: {{ config.range }} miles, 
-        Max Speed: {{ config.speed }}, 
-        Cost: {{ config.price | usd }}
+        Max Speed: {{ config.speed }}
+        @if (showCost) { 
+            , Cost: {{ config.price | usd }}
+        }
     }
 </span>
