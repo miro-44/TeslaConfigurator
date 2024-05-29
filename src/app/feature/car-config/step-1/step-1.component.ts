@@ -47,7 +47,7 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
       );
     }
 
-    protected updateState(): void {
+    private updateState(): void {
       if (this.modelSelect == null || this.colorSelect == null) {
         this.formStateTransferService.setModelAndColor(null);
         return;
