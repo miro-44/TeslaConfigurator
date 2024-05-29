@@ -31,10 +31,10 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
 
     ngOnInit(): void {
       this.vehicles$ = this.teslaService.fetchModels();
-      let persistedModelAndColor = this.formStateTransferService.getModelAndColor();
+      let previousModelAndColor = this.formStateTransferService.modelAndColor;
       this.step1FormGroup = new FormGroup({
-        modelSelect: new FormControl<VehicleModel | null>(persistedModelAndColor?.model || null, [Validators.required]),
-        colorSelect: new FormControl<Color | null>(persistedModelAndColor?.color || null, [Validators.required])
+        modelSelect: new FormControl<VehicleModel | null>(previousModelAndColor?.model || null, [Validators.required]),
+        colorSelect: new FormControl<Color | null>(previousModelAndColor?.color || null, [Validators.required])
       });
       this.subs.add(this.step1FormGroup.controls.modelSelect.valueChanges
         .subscribe(() => {
@@ -51,10 +51,10 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
 
     private updateState(): void {
       if (this.modelSelect == null || this.colorSelect == null) {
-        this.formStateTransferService.setModelAndColor(null);
+        this.formStateTransferService.modelAndColor = null;
         return;
       }
-      this.formStateTransferService.setModelAndColor({model: this.modelSelect!, color: this.colorSelect!});
+      this.formStateTransferService.modelAndColor = {model: this.modelSelect!, color: this.colorSelect!};
     }
 
     protected selectCompareFn(selected: VehicleModel | Color | null, option: VehicleModel | Color): boolean {

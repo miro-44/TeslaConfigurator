@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ModelAndColor } from './model-and-color.type';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { ConfigAndExtras } from './config-and-extras.type';
 
 @Injectable({
@@ -8,22 +8,20 @@ import { ConfigAndExtras } from './config-and-extras.type';
 })
 export class FormStateTransferService {
 
-  readonly modelAndColor$: BehaviorSubject<ModelAndColor | null> = new BehaviorSubject<ModelAndColor | null>(this.getModelAndColor());
+  private readonly modelAndColor$: BehaviorSubject<ModelAndColor | null> = new BehaviorSubject<ModelAndColor | null>(null);
 
   constructor() { }
 
-  setModelAndColor(modelAndColor: ModelAndColor | null): void {
-    if (!modelAndColor) {
-      sessionStorage.removeItem('step1');
-      this.modelAndColor$.next(null);
-      return;
-    }
-    sessionStorage.setItem('step1', JSON.stringify(modelAndColor));
+  set modelAndColor(modelAndColor: ModelAndColor | null) {
     this.modelAndColor$.next(modelAndColor);
   }
 
-  getModelAndColor(): ModelAndColor | null {
-    return this.retrieveItem<ModelAndColor>('step1');
+  get modelAndColor(): ModelAndColor | null {
+    return this.modelAndColor$.getValue();
+  }
+
+  subscribeToModelAndColor(subscriber: (value: ModelAndColor | null) => void): Subscription {
+    return this.modelAndColor$.subscribe(subscriber);
   }
 
   setConfigAndExtras(configAndExtras: ConfigAndExtras | null): void {

@@ -39,7 +39,7 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
       includeYoke: new FormControl<boolean>(false, {nonNullable: true})
     });
     this.subs.add(
-      this.teslaService.fetchConfigs(this.formStateTransferService.getModelAndColor()!.model.code)
+      this.teslaService.fetchConfigs(this.formStateTransferService.modelAndColor!.model.code)
         .subscribe(vehicleOptions => this.vehicleOptions = vehicleOptions)
     );
   }
