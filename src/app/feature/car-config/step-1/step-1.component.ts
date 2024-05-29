@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TeslaService } from '../shared/tesla.service';
 import { VehicleModel } from '../shared/vehicle-model.type';
 import { AsyncPipe, CommonModule } from '@angular/common';
@@ -25,8 +25,7 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
 
     constructor(
       private teslaService: TeslaService,
-      private formStateTransferService: FormStateTransferService,
-      private changeDetectorRef: ChangeDetectorRef
+      private formStateTransferService: FormStateTransferService
     ) {
       super();
     }
@@ -41,19 +40,23 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
       });
       console.log(this.step1FormGroup.value);
       this.subs.add(this.step1FormGroup.controls.modelSelect.valueChanges
-          .subscribe(() => {
-            this.step1FormGroup.patchValue({colorSelect: this.modelSelect?.colors[0] || null});
-            if (this.modelSelect == null || this.colorSelect == null) {
-              this.formStateTransferService.setModelAndColor(null);
-              return;
-            }
-            this.formStateTransferService.setModelAndColor({model: this.modelSelect!, color: this.colorSelect});
-          })
+        .subscribe(() => {
+          this.step1FormGroup.patchValue({colorSelect: this.modelSelect?.colors[0] || null});
+        })
+      );
+      this.subs.add(this.step1FormGroup.valueChanges
+        .subscribe(() => {
+          if (this.modelSelect == null || this.colorSelect == null) {
+            this.formStateTransferService.setModelAndColor(null);
+            return;
+          }
+          this.formStateTransferService.setModelAndColor({model: this.modelSelect!, color: this.colorSelect!});
+        })
       );
     }
 
-    compareFn(item1: any, item2: any) {
-      return item1 && item2 ? item1.code == item2.code : item1 == item2;
+    compareFn(selected: VehicleModel | Color | null, option: VehicleModel | Color): boolean {
+      return (selected && option) ? (selected!.code === option.code) : (selected === option);
     }
 
     protected fetchVehicleImageUrl(): string {

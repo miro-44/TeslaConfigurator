@@ -9,7 +9,7 @@
     </select>
     @if (modelSelect?.colors?.length) {
         <label for='colorSelect'>Color: </label>
-        <select name='colorSelect' id='colorSelect' formControlName='colorSelect'>
+        <select name='colorSelect' id='colorSelect' formControlName='colorSelect' [compareWith]="compareFn">
             @for (color of modelSelect!.colors; track color.code) {
                 <option [ngValue]='color'>{{ color.description }}</option>
             }
