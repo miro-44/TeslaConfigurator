@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class FormStateTransferService {
 
-  modelAndColor$: BehaviorSubject<ModelAndColor | null> = new BehaviorSubject<ModelAndColor | null>(this.getModelAndColor());
+  readonly modelAndColor$: BehaviorSubject<ModelAndColor | null> = new BehaviorSubject<ModelAndColor | null>(this.getModelAndColor());
 
   constructor() { }
 
