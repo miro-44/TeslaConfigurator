@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { VehicleModel } from './vehicle-model.model';
-import { ModelAndColor } from './model-and-color.model';
+import { VehicleModel } from './vehicle-model.type';
+import { ModelAndColor } from './model-and-color.type';
 
 @Injectable({
   providedIn: 'root'

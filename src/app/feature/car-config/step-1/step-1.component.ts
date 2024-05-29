@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TeslaService } from '../shared/tesla.service';
-import { VehicleModel } from '../shared/vehicle-model.model';
+import { VehicleModel } from '../shared/vehicle-model.type';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Color } from '../shared/color.model';
-import { ModelAndColor } from '../shared/model-and-color.model';
+import { Color } from '../shared/color.type';
+import { ModelAndColor } from '../shared/model-and-color.type';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
-import { TypeAsFormControls } from '../shared/type-as-form-controls.type';
+import { ObjAsFormControls } from '../shared/obj-as-form-controls.type';
 
 @Component({
   selector: 'app-step-1',
@@ -19,8 +19,8 @@ import { TypeAsFormControls } from '../shared/type-as-form-controls.type';
 export class Step1Component extends AutoUnsubAdapter implements OnInit {
     protected readonly baseImageUrl: string = 'https://interstate21.com/tesla-app/images/';
     protected vehicles$!: Observable<VehicleModel[]>;
-    protected readonly step1FormGroup: FormGroup<TypeAsFormControls<ModelAndColor>>;
-    protected readonly step1FormControls: TypeAsFormControls<ModelAndColor>;
+    protected readonly step1FormGroup: FormGroup<ObjAsFormControls<ModelAndColor>>;
+    protected readonly step1FormControls: ObjAsFormControls<ModelAndColor>;
 
     constructor(private teslaService: TeslaService) {
       super();
