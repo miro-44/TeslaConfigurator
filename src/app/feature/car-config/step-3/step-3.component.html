@@ -1,2 +1,21 @@
 <h1>Step 3: Summary</h1>
 <h3>Your Tesla {{ modelAndColor.model.description }}</h3>
+<div>
+    <table style="border: none;">
+        <tr>
+            <td><strong>{{ configAndExtras.config.description }}</strong></td>
+            <td>{{ configAndExtras.config.price | usd }}</td>
+        </tr>
+        <tr>
+            <td>
+                <span>
+                    Range: {{ configAndExtras.config.range }} miles, 
+                    Max Speed: {{ configAndExtras.config.speed }}, 
+                    Cost: {{ configAndExtras.config.price | usd }}
+                </span>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    <br />
+</div>
