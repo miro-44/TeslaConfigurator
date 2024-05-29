@@ -5,7 +5,7 @@ import { FormContainerComponent } from './feature/car-config/form-container/form
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, FormContainerComponent],
+  imports: [FormContainerComponent],
   templateUrl: './app.component.html'
 })
 export class AppComponent {
