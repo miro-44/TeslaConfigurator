@@ -1,20 +1,24 @@
-import { Injectable } from '@angular/core';
-import { VehicleModel } from './vehicle-model.type';
+import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
 import { ModelAndColor } from './model-and-color.type';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormStateTransferService {
 
+  modelAndColor$: BehaviorSubject<ModelAndColor | null> = new BehaviorSubject<ModelAndColor | null>(this.getModelAndColor());
+
   constructor() { }
 
-  setModelAndColor(data: ModelAndColor | null): void {
-    if (!data) {
+  setModelAndColor(modelAndColor: ModelAndColor | null): void {
+    if (!modelAndColor) {
       sessionStorage.removeItem('step1');
+      this.modelAndColor$.next(modelAndColor);
       return;
     }
-    sessionStorage.setItem('step1', JSON.stringify(data));
+    sessionStorage.setItem('step1', JSON.stringify(modelAndColor));
+    this.modelAndColor$.next(modelAndColor);
   }
 
   getModelAndColor(): ModelAndColor | null {
