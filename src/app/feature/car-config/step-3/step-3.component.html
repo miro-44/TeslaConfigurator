@@ -8,11 +8,7 @@
         </tr>
         <tr>
             <td>
-                <span>
-                    Range: {{ configAndExtras.config.range }} miles, 
-                    Max Speed: {{ configAndExtras.config.speed }}, 
-                    Cost: {{ configAndExtras.config.price | usd }}
-                </span>
+                <app-vehicle-specs [config]='configAndExtras.config'></app-vehicle-specs>
             </td>
             <td></td>
         </tr>

@@ -8,11 +8,12 @@ import { VehicleOptions } from '../shared/vehicle-options.type';
 import { UsdPipe } from '../shared/usd.pipe';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
 import { ConfigAndExtras } from '../shared/config-and-extras.type';
+import { VehicleSpecsComponent } from '../vehicle-specs/vehicle-specs.component';
 
 @Component({
   selector: 'app-step-2',
   standalone: true,
-  imports: [AsyncPipe, ReactiveFormsModule, UsdPipe],
+  imports: [AsyncPipe, ReactiveFormsModule, UsdPipe, VehicleSpecsComponent],
   providers: [CurrencyPipe],
   templateUrl: './step-2.component.html'
 })

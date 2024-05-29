@@ -6,15 +6,10 @@
         @for (config of vehicleOptions?.configs; track config.id) {
             <option [ngValue]='config'>{{ config.description }}</option>
         }
-    </select><br />
-    @if (configSelect) {
-        <span>
-            Range: {{ configSelect.range }} miles, 
-            Max Speed: {{ configSelect.speed }}, 
-            Cost: {{ configSelect.price | usd }}
-        </span>
-        <br />
-    }
+    </select>
+    <br />
+    <app-vehicle-specs [config]='configSelect ?? undefined'></app-vehicle-specs>
+    <br />
     @if (vehicleOptions?.towHitch) {
         <label for='includeTowHitch'>Tow Hitch?</label>
         <input type='checkbox' name='includeTowHitch' id='includeTowHitch' formControlName='includeTowHitch' />

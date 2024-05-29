@@ -4,11 +4,12 @@ import { ModelAndColor } from '../shared/model-and-color.type';
 import { ConfigAndExtras } from '../shared/config-and-extras.type';
 import { UsdPipe } from '../shared/usd.pipe';
 import { CurrencyPipe } from '@angular/common';
+import { VehicleSpecsComponent } from '../vehicle-specs/vehicle-specs.component';
 
 @Component({
   selector: 'app-step-3',
   standalone: true,
-  imports: [UsdPipe],
+  imports: [UsdPipe, VehicleSpecsComponent],
   providers: [CurrencyPipe],
   templateUrl: './step-3.component.html',
   styleUrl: './step-3.component.scss'
