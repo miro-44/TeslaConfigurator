@@ -7,7 +7,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Color } from '../shared/color.type';
 import { ModelAndColor } from '../shared/model-and-color.type';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
-import { ObjAsFormControls } from '../shared/obj-as-form-controls.type';
 import { FormStateTransferService } from '../shared/form-state-transfer.service';
 
 @Component({
@@ -18,7 +17,10 @@ import { FormStateTransferService } from '../shared/form-state-transfer.service'
 })
 export class Step1Component extends AutoUnsubAdapter implements OnInit {
     protected vehicles$!: Observable<VehicleModel[]>;
-    protected step1FormGroup!: FormGroup<ObjAsFormControls<ModelAndColor>>;
+    protected step1FormGroup!: FormGroup<{
+      modelSelect: FormControl<VehicleModel | null>,
+      colorSelect: FormControl<Color | null>
+    }>;
 
     constructor(
       private teslaService: TeslaService,
