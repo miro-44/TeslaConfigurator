@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { TeslaService } from '../shared/tesla.service';
 import { VehicleModel } from '../shared/vehicle-model.model';
 import { AsyncPipe } from '@angular/common';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Color } from '../shared/color.model';
-import { Step1Form } from '../shared/step-1-form.model';
+import { ModelAndColor } from '../shared/model-and-color.model';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
+import { TypeAsFormControls } from '../shared/type-as-form-controls.type';
 
 @Component({
   selector: 'app-step-1',
@@ -18,21 +19,21 @@ import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
 export class Step1Component extends AutoUnsubAdapter implements OnInit {
     protected readonly baseImageUrl: string = 'https://interstate21.com/tesla-app/images/';
     protected vehicles$!: Observable<VehicleModel[]>;
-    protected readonly step1FormGroup: FormGroup<Step1Form>;
-    protected readonly step1FormModel: Step1Form;
+    protected readonly step1FormGroup: FormGroup<TypeAsFormControls<ModelAndColor>>;
+    protected readonly step1FormControls: TypeAsFormControls<ModelAndColor>;
 
     constructor(private teslaService: TeslaService) {
       super();
-      this.step1FormModel = {
+      this.step1FormControls = {
         modelSelect: new FormControl<VehicleModel | null>(null),
         colorSelect: new FormControl<Color | null>(null)
       };
-      this.step1FormGroup = new FormGroup(this.step1FormModel);
+      this.step1FormGroup = new FormGroup(this.step1FormControls);
     }
 
     ngOnInit(): void {
       this.vehicles$ = this.teslaService.fetch();
-      this.subs.add(this.step1FormModel.modelSelect.valueChanges
+      this.subs.add(this.step1FormControls.modelSelect.valueChanges
           .subscribe(() =>
             this.step1FormGroup.patchValue({colorSelect: this.modelSelect?.colors[0] || null})
           )
@@ -43,11 +44,11 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
       return this.baseImageUrl + this.modelSelect!.code + '/' + this.colorSelect!.code + '.jpg';
     }
 
-    protected get modelSelect(): VehicleModel | null  {
-      return this.step1FormModel.modelSelect!.value || null;
+    protected get modelSelect(): VehicleModel | null {
+      return this.step1FormControls.modelSelect!.value || null;
     }
 
     protected get colorSelect(): Color | null {
-      return this.step1FormModel.colorSelect!.value || null;
+      return this.step1FormControls.colorSelect!.value || null;
     }
 }
