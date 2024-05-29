@@ -1,5 +1,5 @@
-import { Config } from "./config.type";
+import { Config } from "./config.type"
 
 export interface VehicleSetup {
-    configs: Config[];
+    config: Config
 }

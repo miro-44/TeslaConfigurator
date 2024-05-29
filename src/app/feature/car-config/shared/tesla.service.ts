@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ModelCode, VehicleModel } from './vehicle-model.type';
-import { Config } from './config.type';
-import { VehicleSetup } from './vehicle-setup.type';
+import { VehicleOptions } from './vehicle-options.type';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class TeslaService {
     return this.httpClient.get<VehicleModel[]>('/models');
   }
 
-  fetchConfigs(model: ModelCode): Observable<VehicleSetup> {
-    return this.httpClient.get<VehicleSetup>('/options/' + model);
+  fetchConfigs(model: ModelCode): Observable<VehicleOptions> {
+    return this.httpClient.get<VehicleOptions>('/options/' + model);
   }
 }

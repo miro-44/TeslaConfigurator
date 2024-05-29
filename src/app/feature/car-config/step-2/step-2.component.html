@@ -1,10 +1,13 @@
 <h1>Step 2: Select config and options</h1>
 <form [formGroup]='step2FormGroup'>
     <label for='configSelect'>Config: </label>
-    <select name='configSelect' id='configSelect' formControlName='configsSelect'>
+    <select name='configSelect' id='configSelect' formControlName='configSelect'>
         <option [ngValue]='null'>Choose...</option>
-        @for (config of (vehicleSetup$ | async)?.configs; track config.id) {
+        @for (config of (vehicleOptions$ | async)?.configs; track config.id) {
             <option [ngValue]='config'>{{ config.description }}</option>
         }
     </select>
+    @if (configSelect) {
+        <span>Range: {{ configSelect.range }} miles, Max Speed: {{ configSelect.speed }}, </span>
+    }
 </form>
