@@ -17,11 +17,11 @@
     }
     @if (vehicleOptions?.towHitch) {
         <label for='includeTowHitch'>Tow Hitch?</label>
-        <input type='checkbox' formControlName='includeTowHitch' />
+        <input type='checkbox' name='includeTowHitch' id='includeTowHitch' formControlName='includeTowHitch' />
         <br />
     }
     @if (vehicleOptions?.yoke) {
         <label for='includeYoke'>Yoke Steering Wheel?</label>
-        <input type='checkbox' formControlName='includeYoke' />
+        <input type='checkbox' name='includeYoke' id= 'includeYoke' formControlName='includeYoke' />
     }
 </form>

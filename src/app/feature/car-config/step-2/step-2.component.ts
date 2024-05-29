@@ -7,7 +7,7 @@ import { FormStateTransferService } from '../shared/form-state-transfer.service'
 import { VehicleOptions } from '../shared/vehicle-options.type';
 import { UsdPipe } from '../shared/usd.pipe';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
-import { VehicleSetup } from '../shared/vehicle-setup.type';
+import { ConfigAndExtras } from '../shared/config-and-extras.type';
 
 @Component({
   selector: 'app-step-2',
@@ -18,14 +18,17 @@ import { VehicleSetup } from '../shared/vehicle-setup.type';
 })
 export class Step2Component extends AutoUnsubAdapter implements OnInit {
   protected vehicleOptions?: VehicleOptions;
-  protected currentVehicleSetup?: VehicleSetup;
+  protected currentVehicleSetup?: ConfigAndExtras;
   protected step2FormGroup!: FormGroup<{
     configSelect: FormControl<Config | null>,
     includeTowHitch: FormControl<boolean>,
     includeYoke: FormControl<boolean>
   }>;
 
-  constructor(private teslaService: TeslaService, private formStateTransferService: FormStateTransferService) {
+  constructor(
+    private teslaService: TeslaService,
+    private formStateTransferService: FormStateTransferService
+  ) {
     super();
   }
 

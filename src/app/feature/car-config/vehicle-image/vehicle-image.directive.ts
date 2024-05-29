@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, OnInit } from '@angular/core';
+import { Directive, HostBinding, OnInit } from '@angular/core';
 import { FormStateTransferService } from '../shared/form-state-transfer.service';
 import { ModelAndColor } from '../shared/model-and-color.type';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';

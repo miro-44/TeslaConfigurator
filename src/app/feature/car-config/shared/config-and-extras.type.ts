@@ -1,6 +1,6 @@
 import { Config } from "./config.type"
 
-export interface VehicleSetup {
+export interface ConfigAndExtras {
     config: Config,
     towHitch: boolean,
     yoke: boolean
