@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ObjAsFormControls } from '../shared/obj-as-form-controls.type';
 import { Config } from '../shared/config.type';
@@ -8,14 +8,15 @@ import { Observable } from 'rxjs';
 import { FormStateTransferService } from '../shared/form-state-transfer.service';
 import { VehicleOptions } from '../shared/vehicle-options.type';
 import { VehicleSetup } from '../shared/vehicle-setup.type';
+import { UsdPipe } from '../shared/usd.pipe';
 
 
 @Component({
   selector: 'app-step-2',
   standalone: true,
-  imports: [AsyncPipe, ReactiveFormsModule],
-  templateUrl: './step-2.component.html',
-  styleUrl: './step-2.component.scss'
+  imports: [AsyncPipe, ReactiveFormsModule, UsdPipe],
+  providers: [CurrencyPipe],
+  templateUrl: './step-2.component.html'
 })
 export class Step2Component implements OnInit {
   protected vehicleOptions$!: Observable<VehicleOptions>;

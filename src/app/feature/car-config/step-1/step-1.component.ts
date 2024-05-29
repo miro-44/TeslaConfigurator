@@ -14,8 +14,7 @@ import { FormStateTransferService } from '../shared/form-state-transfer.service'
   selector: 'app-step-1',
   standalone: true,
   imports: [AsyncPipe, ReactiveFormsModule, CommonModule],
-  templateUrl: './step-1.component.html',
-  styleUrl: './step-1.component.scss'
+  templateUrl: './step-1.component.html'
 })
 export class Step1Component extends AutoUnsubAdapter implements OnInit {
     protected vehicles$!: Observable<VehicleModel[]>;

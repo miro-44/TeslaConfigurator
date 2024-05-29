@@ -8,6 +8,10 @@
         }
     </select>
     @if (configSelect) {
-        <span>Range: {{ configSelect.range }} miles, Max Speed: {{ configSelect.speed }}, </span>
+        <span>
+            Range: {{ configSelect.range }} miles, 
+            Max Speed: {{ configSelect.speed }}, 
+            Cost: {{ configSelect.price | usd }}
+        </span>
     }
 </form>
