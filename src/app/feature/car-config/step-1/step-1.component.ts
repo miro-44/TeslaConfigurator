@@ -58,7 +58,7 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
       this.formStateTransferService.setModelAndColor({model: this.modelSelect!, color: this.colorSelect!});
     }
 
-    protected compareFn(selected: VehicleModel | Color | null, option: VehicleModel | Color): boolean {
+    protected selectCompareFn(selected: VehicleModel | Color | null, option: VehicleModel | Color): boolean {
       return (selected && option) ? (selected!.code === option.code) : (selected === option);
     }
 
