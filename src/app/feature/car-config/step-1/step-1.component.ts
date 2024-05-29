@@ -8,6 +8,7 @@ import { Color } from '../shared/color.type';
 import { ModelAndColor } from '../shared/model-and-color.type';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
 import { ObjAsFormControls } from '../shared/obj-as-form-controls.type';
+import { FormStateTransferService } from '../shared/form-state-transfer.service';
 
 @Component({
   selector: 'app-step-1',
@@ -17,26 +18,34 @@ import { ObjAsFormControls } from '../shared/obj-as-form-controls.type';
   styleUrl: './step-1.component.scss'
 })
 export class Step1Component extends AutoUnsubAdapter implements OnInit {
-    protected readonly baseImageUrl: string = 'https://interstate21.com/tesla-app/images/';
     protected vehicles$!: Observable<VehicleModel[]>;
-    protected readonly step1FormGroup: FormGroup<ObjAsFormControls<ModelAndColor>>;
-    protected readonly step1FormControls: ObjAsFormControls<ModelAndColor>;
+    protected step1FormGroup!: FormGroup<ObjAsFormControls<ModelAndColor>>;
+    protected step1FormControls!: ObjAsFormControls<ModelAndColor>;
+    private readonly baseImageUrl: string = 'https://interstate21.com/tesla-app/images/';
 
-    constructor(private teslaService: TeslaService) {
+    constructor(
+      private teslaService: TeslaService,
+      private formStateTransferService: FormStateTransferService
+    ) {
       super();
+    }
+
+    ngOnInit(): void {
       this.step1FormControls = {
         modelSelect: new FormControl<VehicleModel | null>(null),
         colorSelect: new FormControl<Color | null>(null)
       };
       this.step1FormGroup = new FormGroup(this.step1FormControls);
-    }
-
-    ngOnInit(): void {
-      this.vehicles$ = this.teslaService.fetch();
+      this.vehicles$ = this.teslaService.fetchModels();
       this.subs.add(this.step1FormControls.modelSelect.valueChanges
-          .subscribe(() =>
-            this.step1FormGroup.patchValue({colorSelect: this.modelSelect?.colors[0] || null})
-          )
+          .subscribe(() => {
+            this.step1FormGroup.patchValue({colorSelect: this.modelSelect?.colors[0] || null});
+            if (this.modelSelect == null || this.colorSelect == null) {
+              this.formStateTransferService.setModelAndColor(null);
+              return;
+            }
+            this.formStateTransferService.setModelAndColor({model: this.modelSelect!, color: this.colorSelect});
+          })
       );
     }
 

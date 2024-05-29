@@ -9,8 +9,12 @@ export class FormStateTransferService {
 
   constructor() { }
 
-  setModelAndColor(data: ModelAndColor): void {
-    sessionStorage.setItem("step1", JSON.stringify(data));
+  setModelAndColor(data: ModelAndColor | null): void {
+    if (!data) {
+      sessionStorage.removeItem('step1');
+      return;
+    }
+    sessionStorage.setItem('step1', JSON.stringify(data));
   }
 
   getModel(): VehicleModel | null {
