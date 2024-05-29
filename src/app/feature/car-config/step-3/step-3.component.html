@@ -3,7 +3,9 @@
 <div>
     <table style="border: none;">
         <tr>
-            <td><strong>{{ configAndExtras.config.description }}</strong></td>
+            <td>
+                <strong>{{ configAndExtras.config.description }}</strong>
+            </td>
             <td>{{ configAndExtras.config.price | usd }}</td>
         </tr>
         <tr>
@@ -11,6 +13,12 @@
                 <app-vehicle-specs [config]='configAndExtras.config' [showCost]='false'></app-vehicle-specs>
             </td>
             <td></td>
+        </tr>
+        <tr>
+            <td>
+                <strong>{{ modelAndColor.color.description }}</strong>
+            </td>
+            <td>{{ modelAndColor.color.price | usd }}</td>
         </tr>
     </table>
     <br />
