@@ -1,7 +1,18 @@
 <h1>Step 1: Choose your Model and Color</h1>
-<label for="modelSelect">Model:</label>
-<select name="modelSelect" id="modelSelect">
-    @for (vehicle of (vehicles | async); track vehicle.code) {
-        <option [value]="vehicle.code">{{ vehicle.description }}</option>
+<form>
+    <label for='modelSelect'>Model:</label>
+    <select name='modelSelect' id='modelSelect' [(ngModel)]='selectedVehicle'>
+        <option [ngValue]='undefined' selected>Choose...</option>
+        @for (vehicle of (vehicles | async); track vehicle.code) {
+            <option [ngValue]='vehicle'>{{ vehicle.description }}</option>
+        }
+    </select>
+    @if (selectedVehicle) {
+        <label for='colorSelect'>Color: </label>
+        <select name='colorSelect' id='colorSelect'>
+            @for (color of selectedVehicle!.colors; track color.code) {
+                <option [value]='color.code'>{{ color.description }}</option>
+            }
+        </select>
     }
-</select>
+</form>
