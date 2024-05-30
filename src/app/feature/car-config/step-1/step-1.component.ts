@@ -5,7 +5,6 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Color } from '../shared/color.type';
-import { ModelAndColor } from '../shared/model-and-color.type';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
 import { FormStateTransferService } from '../shared/form-state-transfer.service';
 

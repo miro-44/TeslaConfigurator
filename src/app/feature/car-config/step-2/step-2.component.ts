@@ -33,7 +33,6 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
 
   ngOnInit(): void {
     let previousVehicleSetup = this.formStateTransferService.configAndExtras;
-    console.log("Previous " + previousVehicleSetup);
     this.step2FormGroup = new FormGroup({
       configSelect: new FormControl<Config | null>(previousVehicleSetup?.config || null),
       includeTowHitch: new FormControl<boolean>(previousVehicleSetup?.towHitch || false, {nonNullable: true}),
@@ -41,10 +40,7 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
     });
     this.subs.add(
       this.teslaService.fetchConfigs(this.formStateTransferService.modelAndColor!.model.code)
-        .subscribe(vehicleOptions => {
-          this.vehicleOptions = vehicleOptions;
-          console.log('Added new opitons');
-        })
+        .subscribe(vehicleOptions => this.vehicleOptions = vehicleOptions)
     );
     this.subs.add(
       this.step2FormGroup.valueChanges
@@ -54,7 +50,6 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
           towHitch: this.step2FormGroup.controls.includeTowHitch.value,
           yoke: this.step2FormGroup.controls.includeYoke.value
         }
-        console.log(this.formStateTransferService.configAndExtras);
       })
     );
   }

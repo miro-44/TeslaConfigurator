@@ -1,4 +1,4 @@
-ul {
+div {
     list-style-type: none;
     align-items: center;
     display: flex;
@@ -6,10 +6,11 @@ ul {
     padding: 0;
     justify-content: space-between;
 
-    li {
+    button {
         text-decoration: none;
         width: 100%;
         text-align: center;
+        margin: 0;
 
         &:not(:last-child) {
           border-right: 1px solid var(--nav-border-color);
