@@ -8,6 +8,7 @@ import { VehicleOptions } from '../shared/vehicle-options.type';
 import { UsdPipe } from '../shared/usd.pipe';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
 import { VehicleSpecsComponent } from '../vehicle-specs/vehicle-specs.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-step-2',
@@ -32,6 +33,7 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
   }
 
   ngOnInit(): void {
+    this.retrieveFormOptions();
     let previousVehicleSetup = this.formStateTransferService.configAndExtrasState.data;
     this.step2FormGroup = new FormGroup({
       configSelect: new FormControl<Config | null>(previousVehicleSetup?.config || null, [Validators.required]),
@@ -39,21 +41,8 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
       includeYoke: new FormControl<boolean>(previousVehicleSetup?.yoke || false, {nonNullable: true})
     });
     this.subs.add(
-      this.teslaService.fetchConfigs(this.formStateTransferService.modelAndColorState.data!.model.code)
-        .subscribe(vehicleOptions => this.vehicleOptions = vehicleOptions)
-    );
-    this.subs.add(
       this.step2FormGroup.valueChanges
-      .subscribe(() => {
-        this.formStateTransferService.configAndExtrasState = {
-            data: {
-              config: this.configSelect!,
-              towHitch: this.step2FormGroup.controls.includeTowHitch.value,
-              yoke: this.step2FormGroup.controls.includeYoke.value
-            }, 
-            valid: this.step2FormGroup.valid
-          };
-      })
+        .subscribe(() => this.updateState())
     );
   }
 
@@ -63,6 +52,24 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
 
   protected selectCompareFn(selected: Config | null, option: Config): boolean {
     return (selected && option) ? (selected.id === option.id) : (selected === option);
+  }
+
+  private updateState(): void {
+    this.formStateTransferService.configAndExtrasState = {
+      data: {
+        config: this.configSelect!,
+        towHitch: this.step2FormGroup.controls.includeTowHitch.value,
+        yoke: this.step2FormGroup.controls.includeYoke.value
+      },
+      valid: this.step2FormGroup.valid
+    };
+  }
+
+  private retrieveFormOptions(): void {
+    this.subs.add(
+      this.teslaService.fetchConfigs(this.formStateTransferService.modelAndColorState.data!.model.code)
+        .subscribe(vehicleOptions => this.vehicleOptions = vehicleOptions)
+    );
   }
 
 }
