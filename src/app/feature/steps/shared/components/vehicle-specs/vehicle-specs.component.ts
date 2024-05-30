@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Config } from '../shared/config.type';
-import { UsdPipe } from '../shared/usd.pipe';
+import { Config } from '../../types/config.type';
+import { UsdPipe } from '../../usd.pipe';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({

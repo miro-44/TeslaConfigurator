@@ -1,7 +1,7 @@
 <h1>Step 3: Summary</h1>
 <h3>Your Tesla {{ modelAndColor.model.description }}</h3>
 <div>
-    <table style='border: none;'>
+    <table style="border: none;">
         <tr>
             <td>
                 <strong>{{ configAndExtras.config.description }}</strong>
@@ -10,7 +10,7 @@
         </tr>
         <tr>
             <td>
-                <app-vehicle-specs [config]='configAndExtras.config' [showCost]='false'></app-vehicle-specs>
+                <app-vehicle-specs [config]="configAndExtras.config" [showCost]="false"></app-vehicle-specs>
             </td>
             <td></td>
         </tr>
@@ -32,7 +32,7 @@
                 <td>{{ yokePrice | usd }}</td>
             </tr>
         }
-        <tr style='border-top: 1px solid;'>
+        <tr style="border-top: 1px solid;">
             <td>TOTAL</td>
             <td>{{ totalPrice() | usd }}</td>
         </tr>

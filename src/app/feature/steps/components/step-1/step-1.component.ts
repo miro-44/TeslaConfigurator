@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { TeslaService } from '../shared/tesla.service';
-import { VehicleModel } from '../shared/vehicle-model.type';
+import { VehicleFetchService } from '../../../../core/services/vehicle-fetch.service';
+import { VehicleModel } from '../../shared/types/vehicle-model.type';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Color } from '../shared/color.type';
-import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
-import { FormStateTransferService } from '../shared/form-state-transfer.service';
-import { ModelAndColor } from '../shared/model-and-color.type';
+import { Color } from '../../shared/types/color.type';
+import { AutoUnsubAdapter } from '../../shared/auto-unsub-adapter.class';
+import { VehicleStateHolderService } from '../../../../core/services/vehicle-state-holder.service';
+import { ModelAndColor } from '../../shared/types/model-and-color.type';
 
 @Component({
   selector: 'app-step-1',
@@ -23,15 +23,15 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
     }>;
 
     constructor(
-      private teslaService: TeslaService,
-      private formStateTransferService: FormStateTransferService
+      private vehicleFetchService: VehicleFetchService,
+      private vehicleStateHolderService: VehicleStateHolderService
     ) {
       super();
     }
 
     ngOnInit(): void {
       this.retrieveFormOptions();
-      let previousModelAndColor: ModelAndColor | null = this.formStateTransferService.modelAndColorState.data;
+      let previousModelAndColor: ModelAndColor | null = this.vehicleStateHolderService.modelAndColorState.data;
       this.step1FormGroup = new FormGroup({
         modelSelect: new FormControl<VehicleModel | null>(previousModelAndColor?.model || null, [Validators.required]),
         colorSelect: new FormControl<Color | null>(previousModelAndColor?.color || null, [Validators.required])
@@ -62,7 +62,7 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
     }
 
     private updateState(): void {
-      this.formStateTransferService.modelAndColorState = {
+      this.vehicleStateHolderService.modelAndColorState = {
         data: {
           model: this.modelSelect!,
           color: this.colorSelect!
@@ -72,6 +72,6 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
     }
 
     private retrieveFormOptions(): void {
-      this.vehicles$ = this.teslaService.fetchModels();
+      this.vehicles$ = this.vehicleFetchService.fetchModels();
     }
 }

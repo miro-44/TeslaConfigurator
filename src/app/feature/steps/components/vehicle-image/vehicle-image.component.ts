@@ -1,5 +1,5 @@
 import { Component, Signal, computed } from '@angular/core';
-import { FormStateTransferService } from '../shared/form-state-transfer.service';
+import { VehicleStateHolderService } from '../../../../core/services/vehicle-state-holder.service';
 
 @Component({
   selector: 'app-vehicle-image',
@@ -10,8 +10,8 @@ import { FormStateTransferService } from '../shared/form-state-transfer.service'
 export class VehicleImageComponent {
 
   protected imageUrl: Signal<string | null> = computed(() => {
-    let modelCode: string | undefined = this.formStateTransferService.modelAndColorState.data?.model?.code;
-    let colorCode: string | undefined = this.formStateTransferService.modelAndColorState.data?.color?.code;
+    let modelCode: string | undefined = this.vehicleStateHolderService.modelAndColorState.data?.model?.code;
+    let colorCode: string | undefined = this.vehicleStateHolderService.modelAndColorState.data?.color?.code;
 
     if (!modelCode || !colorCode) {
       return null;
@@ -20,5 +20,5 @@ export class VehicleImageComponent {
     return `https://interstate21.com/tesla-app/images/${modelCode}/${colorCode}.jpg`
   })
 
-  constructor(private formStateTransferService: FormStateTransferService) {}
+  constructor(private vehicleStateHolderService: VehicleStateHolderService) {}
 }

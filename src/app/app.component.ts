@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormContainerComponent } from './feature/car-config/form-container/form-container.component';
+import { FormContainerComponent } from './feature/steps/components/form-container/form-container.component';
 
 @Component({
   selector: 'app-root',

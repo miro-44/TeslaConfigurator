@@ -1,10 +1,10 @@
 import { Component, Signal, computed } from '@angular/core';
-import { FormStateTransferService } from '../shared/form-state-transfer.service';
-import { ModelAndColor } from '../shared/model-and-color.type';
-import { ConfigAndExtras } from '../shared/config-and-extras.type';
-import { UsdPipe } from '../shared/usd.pipe';
+import { VehicleStateHolderService } from '../../../../core/services/vehicle-state-holder.service';
+import { ModelAndColor } from '../../shared/types/model-and-color.type';
+import { ConfigAndExtras } from '../../shared/types/config-and-extras.type';
+import { UsdPipe } from '../../shared/usd.pipe';
 import { CurrencyPipe } from '@angular/common';
-import { VehicleSpecsComponent } from '../vehicle-specs/vehicle-specs.component';
+import { VehicleSpecsComponent } from '../../shared/components/vehicle-specs/vehicle-specs.component';
 
 @Component({
   selector: 'app-step-3',
@@ -25,14 +25,14 @@ export class Step3Component {
       (this.configAndExtras.yoke ? this.yokePrice : 0);
   })
 
-  constructor(private formStateTransferService: FormStateTransferService) {}
+  constructor(private vehicleStateHolderService: VehicleStateHolderService) {}
 
   get modelAndColor(): ModelAndColor {
-    return this.formStateTransferService.modelAndColorState.data!;
+    return this.vehicleStateHolderService.modelAndColorState.data!;
   }
 
   get configAndExtras(): ConfigAndExtras {
-    return this.formStateTransferService.configAndExtrasState.data!;
+    return this.vehicleStateHolderService.configAndExtrasState.data!;
   }
 
 }
