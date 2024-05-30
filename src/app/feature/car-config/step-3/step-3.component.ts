@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Signal, computed } from '@angular/core';
 import { FormStateTransferService } from '../shared/form-state-transfer.service';
 import { ModelAndColor } from '../shared/model-and-color.type';
 import { ConfigAndExtras } from '../shared/config-and-extras.type';
@@ -16,8 +16,14 @@ import { VehicleSpecsComponent } from '../vehicle-specs/vehicle-specs.component'
 })
 export class Step3Component {
 
-  readonly towHitchPrice: number = 1000;
-  readonly yokePrice: number = 1000;
+  protected readonly towHitchPrice: number = 1000;
+  protected readonly yokePrice: number = 1000;
+
+  protected totalPrice: Signal<number> = computed(() => {
+    return this.modelAndColor.color.price + this.configAndExtras.config.price +
+    (this.configAndExtras.towHitch ? this.towHitchPrice : 0) +
+      (this.configAndExtras.yoke ? this.yokePrice : 0);
+  })
 
   constructor(private formStateTransferService: FormStateTransferService) {}
 
@@ -27,12 +33,6 @@ export class Step3Component {
 
   get configAndExtras(): ConfigAndExtras {
     return this.formStateTransferService.configAndExtrasState.data!;
-  }
-
-  get totalPrice() {
-    return this.modelAndColor.color.price + this.configAndExtras.config.price +
-      (this.configAndExtras.towHitch ? this.towHitchPrice : 0) +
-        (this.configAndExtras.yoke ? this.yokePrice : 0);
   }
 
 }

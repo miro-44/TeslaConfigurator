@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, Signal, computed } from '@angular/core';
 import { FormStateTransferService } from '../shared/form-state-transfer.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { FormStateTransferService } from '../shared/form-state-transfer.service'
 })
 export class VehicleImageComponent {
 
-  protected imageUrl = computed(() => {
+  protected imageUrl: Signal<string | null> = computed(() => {
     let modelCode: string | undefined = this.formStateTransferService.modelAndColorState.data?.model.code;
     let colorCode: string | undefined = this.formStateTransferService.modelAndColorState.data?.color.code;
 
