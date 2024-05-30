@@ -32,25 +32,28 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
   }
 
   ngOnInit(): void {
-    let previousVehicleSetup = this.formStateTransferService.configAndExtras.getState();
+    let previousVehicleSetup = this.formStateTransferService.configAndExtras.getState().data;
     this.step2FormGroup = new FormGroup({
       configSelect: new FormControl<Config | null>(previousVehicleSetup?.config || null),
       includeTowHitch: new FormControl<boolean>(previousVehicleSetup?.towHitch || false, {nonNullable: true}),
       includeYoke: new FormControl<boolean>(previousVehicleSetup?.yoke || false, {nonNullable: true})
     });
     this.subs.add(
-      this.teslaService.fetchConfigs(this.formStateTransferService.modelAndColor.getState()!.model.code)
+      this.teslaService.fetchConfigs(this.formStateTransferService.modelAndColor.getState().data!.model.code)
         .subscribe(vehicleOptions => this.vehicleOptions = vehicleOptions)
     );
     this.subs.add(
       this.step2FormGroup.valueChanges
       .subscribe(() => {
-        this.formStateTransferService.configAndExtras.setValidity(this.step2FormGroup.valid);
         this.formStateTransferService.configAndExtras.setState({
-          config: this.configSelect!,
-          towHitch: this.step2FormGroup.controls.includeTowHitch.value,
-          yoke: this.step2FormGroup.controls.includeYoke.value
-        });
+            data: {
+              config: this.configSelect!,
+              towHitch: this.step2FormGroup.controls.includeTowHitch.value,
+              yoke: this.step2FormGroup.controls.includeYoke.value
+            }, 
+            valid: this.step2FormGroup.valid
+          }
+        );
       })
     );
   }

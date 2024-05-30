@@ -1,31 +1,26 @@
 import { BehaviorSubject, Observable } from "rxjs";
 
+export type State<T> = {
+  data: T | null,
+  valid: boolean
+}
+
 export class StateManager<T> {
-    private stateSubject$: BehaviorSubject<T | null>;
-    private validitySubject$: BehaviorSubject<boolean>;
+    private stateSubject$: BehaviorSubject<State<T>>;
   
     constructor() {
-      this.stateSubject$ = new BehaviorSubject<T | null>(null);
-      this.validitySubject$ = new BehaviorSubject<boolean>(false);
+      this.stateSubject$ = new BehaviorSubject<State<T>>({data: null, valid: false});
     }
   
-    setState(state: T | null): void {
+    setState(state: State<T>): void {
       this.stateSubject$.next(state);
     }
   
-    getState(): T | null {
+    getState(): State<T> {
       return this.stateSubject$.getValue();
     }
   
-    getState$(): Observable<T | null> {
+    getState$(): Observable<State<T>> {
       return this.stateSubject$;
-    }
-  
-    setValidity(isValid: boolean): void {
-      this.validitySubject$.next(isValid);
-    }
-  
-    getValidity$(): Observable<boolean> {
-      return this.validitySubject$;
     }
 }
