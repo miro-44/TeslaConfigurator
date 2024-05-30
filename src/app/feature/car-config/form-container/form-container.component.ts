@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../../core/navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
-import { VehicleImageDirective } from '../vehicle-image/vehicle-image.directive';
+import { VehicleImageComponent } from '../vehicle-image/vehicle-image.component';
 
 @Component({
   selector: 'app-form-container',
   standalone: true,
-  imports: [NavbarComponent, RouterOutlet, VehicleImageDirective],
+  imports: [NavbarComponent, RouterOutlet, VehicleImageComponent],
   templateUrl: './form-container.component.html',
   styleUrl: './form-container.component.scss',
 })

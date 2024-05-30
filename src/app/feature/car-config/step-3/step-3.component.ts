@@ -22,11 +22,11 @@ export class Step3Component {
   constructor(private formStateTransferService: FormStateTransferService) {}
 
   get modelAndColor(): ModelAndColor {
-    return this.formStateTransferService.modelAndColor.getState().data!;
+    return this.formStateTransferService.modelAndColorState.data!;
   }
 
   get configAndExtras(): ConfigAndExtras {
-    return this.formStateTransferService.configAndExtras.getState().data!;
+    return this.formStateTransferService.configAndExtrasState.data!;
   }
 
   get totalPrice() {

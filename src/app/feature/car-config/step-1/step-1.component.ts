@@ -31,7 +31,7 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
 
     ngOnInit(): void {
       this.vehicles$ = this.teslaService.fetchModels();
-      let previousModelAndColor: ModelAndColor | null = this.formStateTransferService.modelAndColor.getState().data;
+      let previousModelAndColor: ModelAndColor | null = this.formStateTransferService.modelAndColorState.data;
       this.step1FormGroup = new FormGroup({
         modelSelect: new FormControl<VehicleModel | null>(previousModelAndColor?.model || null, [Validators.required]),
         colorSelect: new FormControl<Color | null>(previousModelAndColor?.color || null, [Validators.required])
@@ -62,6 +62,12 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
     }
 
     private updateState(): void {
-      this.formStateTransferService.modelAndColor.setState({data: {model: this.modelSelect!, color: this.colorSelect!}, valid: false});
+      this.formStateTransferService.modelAndColorState = {
+        data: {
+          model: this.modelSelect!,
+          color: this.colorSelect!
+        },
+        valid: false
+      };
     }
 }
