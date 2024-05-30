@@ -7,6 +7,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Color } from '../shared/color.type';
 import { AutoUnsubAdapter } from '../shared/auto-unsub-adapter';
 import { FormStateTransferService } from '../shared/form-state-transfer.service';
+import { ModelAndColor } from '../shared/model-and-color.type';
 
 @Component({
   selector: 'app-step-1',
@@ -30,7 +31,7 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
 
     ngOnInit(): void {
       this.vehicles$ = this.teslaService.fetchModels();
-      let previousModelAndColor = this.formStateTransferService.modelAndColor;
+      let previousModelAndColor: ModelAndColor | null = this.formStateTransferService.modelAndColor.getState();
       this.step1FormGroup = new FormGroup({
         modelSelect: new FormControl<VehicleModel | null>(previousModelAndColor?.model || null, [Validators.required]),
         colorSelect: new FormControl<Color | null>(previousModelAndColor?.color || null, [Validators.required])
@@ -48,14 +49,6 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
       );
     }
 
-    private updateState(): void {
-      if (this.modelSelect == null || this.colorSelect == null) {
-        this.formStateTransferService.modelAndColor = null;
-        return;
-      }
-      this.formStateTransferService.modelAndColor = {model: this.modelSelect!, color: this.colorSelect!};
-    }
-
     protected selectCompareFn(selected: VehicleModel | Color | null, option: VehicleModel | Color): boolean {
       return (selected && option) ? (selected!.code === option.code) : (selected === option);
     }
@@ -66,5 +59,10 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
 
     protected get colorSelect(): Color | null {
       return this.step1FormGroup.controls.colorSelect!.value || null;
+    }
+
+    private updateState(): void {
+      this.formStateTransferService.modelAndColor.setValidity(this.step1FormGroup.valid);
+      this.formStateTransferService.modelAndColor.setState({model: this.modelSelect!, color: this.colorSelect!});
     }
 }

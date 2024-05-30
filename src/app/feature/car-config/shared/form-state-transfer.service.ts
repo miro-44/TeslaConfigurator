@@ -1,32 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ModelAndColor } from './model-and-color.type';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { ConfigAndExtras } from './config-and-extras.type';
+import { StateManager } from './state-manager.class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormStateTransferService {
 
-  private readonly modelAndColor$: BehaviorSubject<ModelAndColor | null> = new BehaviorSubject<ModelAndColor | null>(null);
+  readonly modelAndColor: StateManager<ModelAndColor> = new StateManager();
+  readonly configAndExtras: StateManager<ConfigAndExtras> = new StateManager();
 
   constructor() { }
-
-  configAndExtras: ConfigAndExtras | null = null;
-
-  set modelAndColor(modelAndColor: ModelAndColor | null) {
-    if (!this.modelAndColor || this.modelAndColor?.model !== modelAndColor?.model) {
-      this.configAndExtras = null;
-    }
-    this.modelAndColor$.next(modelAndColor);
-  }
-
-  get modelAndColor(): ModelAndColor | null {
-    return this.modelAndColor$.getValue();
-  }
-
-  subscribeToModelAndColor(subscriber: (value: ModelAndColor | null) => void): Subscription {
-    return this.modelAndColor$.subscribe(subscriber);
-  }
 
 }

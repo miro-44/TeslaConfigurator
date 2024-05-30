@@ -21,8 +21,8 @@ export class VehicleImageDirective extends AutoUnsubAdapter implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subs.add(this.formStateTransferService
-      .subscribeToModelAndColor(modelAndColor => this.src = this.getVehicleImageUrl(modelAndColor)));
+    this.subs.add(this.formStateTransferService.modelAndColor.getState$()
+      .subscribe(modelAndColor => this.src = this.getVehicleImageUrl(modelAndColor)));
   }
 
   private getVehicleImageUrl(modelAndColor: ModelAndColor | null): string | null {
