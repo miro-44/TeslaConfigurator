@@ -67,7 +67,7 @@ export class Step1Component extends AutoUnsubAdapter implements OnInit {
           model: this.modelSelect!,
           color: this.colorSelect!
         },
-        valid: false
+        valid: this.step1FormGroup.valid
       };
     }
 }

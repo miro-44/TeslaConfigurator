@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { StepGuard } from './step.guard';
 
 export const routes: Routes = [
     {
@@ -13,13 +14,15 @@ export const routes: Routes = [
         title: 'Step 2',
         loadComponent: () =>
             import('./feature/car-config/step-2/step-2.component')
-                .then(c => c.Step2Component)
+                .then(c => c.Step2Component),
+        canActivate: [StepGuard.modelAndColorStep1Valid]
     },
     {
         path: 'step3',
         title: 'Step 3',
         loadComponent: () =>
             import('./feature/car-config/step-3/step-3.component')
-                .then(c => c.Step3Component)
+                .then(c => c.Step3Component),
+        canActivate: [StepGuard.configAndExtrasStep2Valid, StepGuard.modelAndColorStep1Valid]
     }
 ];

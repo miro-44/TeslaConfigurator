@@ -2,7 +2,7 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Config } from '../shared/config.type';
 import { TeslaService } from '../shared/tesla.service';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormStateTransferService } from '../shared/form-state-transfer.service';
 import { VehicleOptions } from '../shared/vehicle-options.type';
 import { UsdPipe } from '../shared/usd.pipe';
@@ -34,7 +34,7 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
   ngOnInit(): void {
     let previousVehicleSetup = this.formStateTransferService.configAndExtrasState.data;
     this.step2FormGroup = new FormGroup({
-      configSelect: new FormControl<Config | null>(previousVehicleSetup?.config || null),
+      configSelect: new FormControl<Config | null>(previousVehicleSetup?.config || null, [Validators.required]),
       includeTowHitch: new FormControl<boolean>(previousVehicleSetup?.towHitch || false, {nonNullable: true}),
       includeYoke: new FormControl<boolean>(previousVehicleSetup?.yoke || false, {nonNullable: true})
     });
