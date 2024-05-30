@@ -1,6 +1,6 @@
 import { Injectable, WritableSignal, signal } from '@angular/core';
 import { ModelAndColor } from '../../feature/steps/shared/types/model-and-color.type';
-import { ConfigAndExtras } from '../../feature/steps/shared/types/config-and-extras.type';
+import { ConfigAndOptions } from '../../feature/steps/shared/types/config-and-options.type';
 
 type State<T> = {
   data: T | null,
@@ -13,7 +13,7 @@ type State<T> = {
 export class VehicleStateHolderService {
 
   private readonly modelAndColorSignal: WritableSignal<State<ModelAndColor>> = signal({data: null, valid: false});
-  private readonly configAndExtrasSignal: WritableSignal<State<ConfigAndExtras>> = signal({data: null, valid: false});
+  private readonly configAndOptionsSignal: WritableSignal<State<ConfigAndOptions>> = signal({data: null, valid: false});
 
   get modelAndColorState(): State<ModelAndColor> {
     return this.modelAndColorSignal();
@@ -23,17 +23,17 @@ export class VehicleStateHolderService {
     if (!modelAndColorState ||
         !modelAndColorState.valid ||
         modelAndColorState.data?.model.code !== this.modelAndColorState.data?.model.code) {
-      this.configAndExtrasState = {data: null, valid: false};
+      this.configAndOptionsState = {data: null, valid: false};
     }
     this.modelAndColorSignal.set(modelAndColorState);
   }
 
-  get configAndExtrasState(): State<ConfigAndExtras> {
-    return this.configAndExtrasSignal();
+  get configAndOptionsState(): State<ConfigAndOptions> {
+    return this.configAndOptionsSignal();
   }
 
-  set configAndExtrasState(configAndExtrasState: State<ConfigAndExtras>) {
-    this.configAndExtrasSignal.set(configAndExtrasState);
+  set configAndOptionsState(configAndOptionsState: State<ConfigAndOptions>) {
+    this.configAndOptionsSignal.set(configAndOptionsState);
   }
 
 }

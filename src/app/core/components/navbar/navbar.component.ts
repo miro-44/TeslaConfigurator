@@ -26,7 +26,7 @@ export class NavbarComponent {
     },
     {
       path: "step3",
-      valid: computed(() => this.vehicleStateHolderService.configAndExtrasState.valid)
+      valid: computed(() => this.vehicleStateHolderService.configAndOptionsState.valid)
     }
   ]
 }

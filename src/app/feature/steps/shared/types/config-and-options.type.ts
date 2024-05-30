@@ -1,6 +1,6 @@
 import { Config } from "./config.type"
 
-export interface ConfigAndExtras {
+export interface ConfigAndOptions {
     config: Config,
     towHitch: boolean,
     yoke: boolean

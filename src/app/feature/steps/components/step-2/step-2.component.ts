@@ -4,7 +4,7 @@ import { Config } from '../../shared/types/config.type';
 import { VehicleFetchService } from '../../../../core/services/vehicle-fetch.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VehicleStateHolderService } from '../../../../core/services/vehicle-state-holder.service';
-import { VehicleOptions } from '../../shared/types/vehicle-options.type';
+import { AvailableConfigAndOptions } from '../../shared/types/available-config-and-options.type';
 import { UsdPipe } from '../../shared/usd.pipe';
 import { AutoUnsubAdapter } from '../../shared/auto-unsub-adapter.class';
 import { VehicleSpecsComponent } from '../../shared/components/vehicle-specs/vehicle-specs.component';
@@ -17,7 +17,7 @@ import { VehicleSpecsComponent } from '../../shared/components/vehicle-specs/veh
   templateUrl: './step-2.component.html'
 })
 export class Step2Component extends AutoUnsubAdapter implements OnInit {
-  protected vehicleOptions?: VehicleOptions;
+  protected availableConfigAndOptions?: AvailableConfigAndOptions;
   protected step2FormGroup!: FormGroup<{
     configSelect: FormControl<Config | null>,
     includeTowHitch: FormControl<boolean>,
@@ -33,7 +33,7 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
 
   ngOnInit(): void {
     this.retrieveFormOptions();
-    let previousVehicleSetup = this.vehicleStateHolderService.configAndExtrasState.data;
+    let previousVehicleSetup = this.vehicleStateHolderService.configAndOptionsState.data;
     this.step2FormGroup = new FormGroup({
       configSelect: new FormControl<Config | null>(previousVehicleSetup?.config || null, [Validators.required]),
       includeTowHitch: new FormControl<boolean>(previousVehicleSetup?.towHitch || false, {nonNullable: true}),
@@ -54,7 +54,7 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
   }
 
   private updateState(): void {
-    this.vehicleStateHolderService.configAndExtrasState = {
+    this.vehicleStateHolderService.configAndOptionsState = {
       data: {
         config: this.configSelect!,
         towHitch: this.step2FormGroup.controls.includeTowHitch.value,
@@ -67,7 +67,7 @@ export class Step2Component extends AutoUnsubAdapter implements OnInit {
   private retrieveFormOptions(): void {
     this.subs.add(
       this.vehicleFetchService.fetchConfigs(this.vehicleStateHolderService.modelAndColorState.data!.model.code)
-        .subscribe(vehicleOptions => this.vehicleOptions = vehicleOptions)
+        .subscribe(availableConfigAndOptions => this.availableConfigAndOptions = availableConfigAndOptions)
     );
   }
 

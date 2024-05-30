@@ -4,13 +4,13 @@
     <table style="border: none;">
         <tr>
             <td>
-                <strong>{{ configAndExtras.config.description }}</strong>
+                <strong>{{ configAndOptions.config.description }}</strong>
             </td>
-            <td>{{ configAndExtras.config.price | usd }}</td>
+            <td>{{ configAndOptions.config.price | usd }}</td>
         </tr>
         <tr>
             <td>
-                <app-vehicle-specs [config]="configAndExtras.config" [showCost]="false"></app-vehicle-specs>
+                <app-vehicle-specs [config]="configAndOptions.config" [showCost]="false"></app-vehicle-specs>
             </td>
             <td></td>
         </tr>
@@ -20,13 +20,13 @@
             </td>
             <td>{{ modelAndColor.color.price | usd }}</td>
         </tr>
-        @if (configAndExtras.towHitch) {
+        @if (configAndOptions.towHitch) {
             <tr>
                 <td>Tow Hitch Package</td>
                 <td>{{ towHitchPrice | usd }}</td>
             </tr>
         }
-        @if (configAndExtras.yoke) {
+        @if (configAndOptions.yoke) {
             <tr>
                 <td>Yoke Steering Wheel Package</td>
                 <td>{{ yokePrice | usd }}</td>

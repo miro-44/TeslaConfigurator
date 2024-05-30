@@ -12,8 +12,8 @@ export namespace StepGuard {
     return false;
   };
 
-  export const configAndExtrasStep2Valid: CanActivateFn = (route, state) => {
-    if (inject(VehicleStateHolderService).configAndExtrasState.valid) {
+  export const configAndOptionsStep2Valid: CanActivateFn = (route, state) => {
+    if (inject(VehicleStateHolderService).configAndOptionsState.valid) {
       return true;
     }
     inject(Router).navigate(["/step2"]);

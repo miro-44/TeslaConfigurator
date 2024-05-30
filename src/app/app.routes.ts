@@ -23,7 +23,7 @@ export const routes: Routes = [
         loadComponent: () =>
             import("./feature/steps/components/step-3/step-3.component")
                 .then(c => c.Step3Component),
-        canActivate: [StepGuard.configAndExtrasStep2Valid]
+        canActivate: [StepGuard.configAndOptionsStep2Valid]
     },
     {
         path: "",
