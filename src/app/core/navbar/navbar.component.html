@@ -1,7 +1,7 @@
 <nav>
     <div>
-        @for (route of appRoutes; track route; let index = $index) {
-            <button [routerLink]='route.path' [id]='route.path'>{{ route.title }}</button>
+        @for (route of stepRoutes; track route; let index = $index) {
+            <button [routerLink]='route.path' [id]='route.path' [disabled]='!stepRouteValidMap[index].valid()'>{{ route.title }}</button>
         }
     </div>
 </nav>
